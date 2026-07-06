@@ -1,0 +1,181 @@
+{
+  "common": {
+    "appName": "Pilates Teacher Finder",
+    "byLine": "by Sandra Leo Pilates Education",
+    "qualitySeal": "Vetted by Sandra Leo",
+    "online": "Online classes available",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "submit": "Submit",
+    "sending": "Sending…",
+    "requiredHint": "* Required field",
+    "error": "Something went wrong. Please try again.",
+    "km": "km"
+  },
+  "nav": {
+    "map": "Teacher map",
+    "register": "Apply as a teacher"
+  },
+  "home": {
+    "title": "Qualified pilates teachers near you",
+    "subtitle": "Hand-picked teachers, vetted by Sandra Leo — for studios across Germany.",
+    "teachersFound": "{count, plural, =0 {No teachers found} =1 {1 teacher} other {# teachers}}",
+    "viewProfile": "View profile",
+    "experienceYears": "{years} years of experience",
+    "noResults": "No teachers match the current filters."
+  },
+  "filters": {
+    "title": "Filters",
+    "searchPlaceholder": "Search city or postal code…",
+    "styles": "Pilates style",
+    "equipment": "Equipment",
+    "offerings": "Offerings",
+    "onlineOnly": "Online classes only",
+    "reset": "Reset filters"
+  },
+  "profile": {
+    "aboutTitle": "What sets them apart",
+    "detailsTitle": "Profile",
+    "stylesTitle": "Pilates styles",
+    "equipmentTitle": "Equipment",
+    "offeringsTitle": "Class offerings",
+    "locationsTitle": "Teaching locations",
+    "experienceTitle": "Experience",
+    "teachingSince": "Teaching since {year}",
+    "experienceYears": "{years} years of experience",
+    "educations": "Completed trainings",
+    "certifications": "Certifications",
+    "recentTrainings": "Continuing education (last 2 years)",
+    "location": "Location",
+    "radius": "Teaches within {km} km",
+    "maxDistance": "Maximum distance: {km} km",
+    "requestButton": "Request this teacher",
+    "notFound": "Teacher not found."
+  },
+  "intake": {
+    "title": "Submit your teacher profile",
+    "subtitle": "Join the teacher pool of Sandra Leo Pilates Education. We review every profile personally and get back to you.",
+    "sections": {
+      "personal": "Personal details",
+      "location": "Location",
+      "styles": "Pilates style",
+      "equipment": "Equipment",
+      "experience": "Experience",
+      "quality": "Quality profile",
+      "offerings": "Class offerings",
+      "teachingLocations": "Teaching locations",
+      "photo": "Photo",
+      "confirm": "Confirmation"
+    },
+    "fields": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "gender": "Gender",
+      "email": "Email",
+      "phone": "Phone number",
+      "website_instagram": "Website / Instagram",
+      "location_name": "Main location",
+      "postal_code": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "radius_km": "Willing to teach within (km)",
+      "online_teaching": "Online classes possible",
+      "styles": "I teach",
+      "styles_other": "Other",
+      "equipment": "I teach on",
+      "teaching_since": "Teaching pilates since (year)",
+      "experience_years": "Years of experience",
+      "educations": "Completed pilates trainings",
+      "certifications": "Certifications",
+      "recent_trainings": "Continuing education (last 2 years)",
+      "self_assessment": "Self-assessment",
+      "quality_statement": "What sets you apart as a pilates teacher?",
+      "offerings": "Offerings",
+      "teaching_locations": "I teach in",
+      "max_distance_km": "Maximum distance for teaching (km)",
+      "photo": "Profile photo",
+      "confirmed": "I confirm that all information is correct and consent to my data being stored for placement purposes."
+    },
+    "photoHint": "JPG or PNG. The photo appears on your public profile.",
+    "errors": {
+      "generic": "Please check the highlighted fields.",
+      "field": "Please check this field.",
+      "photoRequired": "Please upload a photo.",
+      "photoTooLarge": "The photo is too large (max. 8 MB).",
+      "photoType": "Please upload JPG, PNG or WebP only."
+    },
+    "success": {
+      "title": "Thank you!",
+      "body": "Your profile has been received. Sandra Leo reviews every application personally and will get back to you. Your profile appears on the map only after approval."
+    }
+  },
+  "inquiry": {
+    "title": "Request this teacher",
+    "subtitle": "Your inquiry goes directly to Sandra Leo, who makes the introduction personally.",
+    "forTeacher": "Inquiry for {name} ({city})",
+    "fields": {
+      "studio_name": "Studio name",
+      "contact_name": "Contact person",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "location": "Studio location",
+      "message": "Your message"
+    },
+    "messagePlaceholder": "What are you looking for? (class types, hours, timeframe …)",
+    "success": {
+      "title": "Inquiry sent!",
+      "body": "Thank you! Sandra Leo will get back to you shortly and make the introduction."
+    }
+  },
+  "options": {
+    "genders": {
+      "female": "Female",
+      "male": "Male",
+      "diverse": "Non-binary"
+    },
+    "styles": {
+      "classical": "Classical",
+      "contemporary": "Contemporary",
+      "rehab": "Rehabilitative / therapeutic",
+      "athletic": "Athletic",
+      "prepostnatal": "Pre-/postnatal",
+      "seniors": "Seniors",
+      "other": "Other"
+    },
+    "equipment": {
+      "mat": "Mat",
+      "reformer": "Reformer",
+      "cadillac": "Cadillac / trapeze table",
+      "chair": "Chair",
+      "ladder_barrel": "Ladder barrel",
+      "spine_corrector": "Spine corrector / arc barrel",
+      "springboard": "Springboard",
+      "tower": "Tower",
+      "small_props": "Small props"
+    },
+    "offerings": {
+      "personal_training": "Personal training",
+      "duet": "Duet",
+      "small_groups": "Small groups",
+      "group_classes": "Group classes",
+      "workshops": "Workshops",
+      "teacher_training": "Teacher training",
+      "online": "Online"
+    },
+    "teachingLocations": {
+      "own_studio": "Own studio",
+      "other_studio": "Partner studio",
+      "gym": "Gym",
+      "physio_practice": "Physiotherapy practice",
+      "clients_home": "Clients' homes",
+      "online": "Online"
+    },
+    "selfAssessments": {
+      "beginner": "Beginner",
+      "advanced": "Advanced",
+      "very_experienced": "Very experienced",
+      "expert": "Expert"
+    }
+  }
+}
