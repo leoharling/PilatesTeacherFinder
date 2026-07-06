@@ -1,15 +1,26 @@
-// City-level geocoding via Nominatim (OpenStreetMap). One request per intake
-// submission — far below the 1 req/s rate limit. Failure is non-fatal: the
-// teacher is saved without coordinates and flagged in the admin.
+// City-level geocoding via Nominatim (OpenStreetMap). At most two requests per
+// intake submission — far below the 1 req/s rate limit. Failure is non-fatal:
+// the teacher is saved without coordinates and flagged in the admin.
+//
+// Nominatim often returns no result when postalcode and city are combined
+// (mismatched pairs yield zero hits), so we query the postal code alone first
+// and fall back to the city name.
 export async function geocode(
   postalCode: string,
   city: string,
   country: string
 ): Promise<{ lat: number; lng: number } | null> {
+  return (
+    (await search({ postalcode: postalCode, country })) ??
+    (await search({ city, country }))
+  );
+}
+
+async function search(
+  query: Record<string, string>
+): Promise<{ lat: number; lng: number } | null> {
   const params = new URLSearchParams({
-    postalcode: postalCode,
-    city,
-    country,
+    ...query,
     format: 'jsonv2',
     limit: '1',
   });
