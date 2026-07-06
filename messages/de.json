@@ -1,0 +1,181 @@
+{
+  "common": {
+    "appName": "Pilates Teacher Finder",
+    "byLine": "von Sandra Leo Pilates Education",
+    "qualitySeal": "Geprüft von Sandra Leo",
+    "online": "Online-Unterricht möglich",
+    "yes": "Ja",
+    "no": "Nein",
+    "back": "Zurück",
+    "submit": "Absenden",
+    "sending": "Wird gesendet…",
+    "requiredHint": "* Pflichtfeld",
+    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "km": "km"
+  },
+  "nav": {
+    "map": "Trainer-Karte",
+    "register": "Als Trainer bewerben"
+  },
+  "home": {
+    "title": "Qualifizierte Pilates-Trainer in Ihrer Nähe",
+    "subtitle": "Handverlesene Trainer, geprüft von Sandra Leo — für Studios in ganz Deutschland.",
+    "teachersFound": "{count, plural, =0 {Keine Trainer gefunden} =1 {1 Trainer} other {# Trainer}}",
+    "viewProfile": "Profil ansehen",
+    "experienceYears": "{years} Jahre Erfahrung",
+    "noResults": "Keine Trainer entsprechen den Filtern."
+  },
+  "filters": {
+    "title": "Filter",
+    "searchPlaceholder": "Stadt oder PLZ suchen…",
+    "styles": "Pilates-Stil",
+    "equipment": "Geräte",
+    "offerings": "Angebot",
+    "onlineOnly": "Nur Online-Unterricht",
+    "reset": "Filter zurücksetzen"
+  },
+  "profile": {
+    "aboutTitle": "Besondere Qualität",
+    "detailsTitle": "Profil",
+    "stylesTitle": "Pilates-Stile",
+    "equipmentTitle": "Geräte",
+    "offeringsTitle": "Unterrichtsangebot",
+    "locationsTitle": "Unterrichtsorte",
+    "experienceTitle": "Erfahrung",
+    "teachingSince": "Unterrichtet seit {year}",
+    "experienceYears": "{years} Jahre Erfahrung",
+    "educations": "Ausbildungen",
+    "certifications": "Zertifizierungen",
+    "recentTrainings": "Fortbildungen der letzten 2 Jahre",
+    "location": "Standort",
+    "radius": "Unterricht im Umkreis von {km} km",
+    "maxDistance": "Maximale Entfernung: {km} km",
+    "requestButton": "Trainer anfragen",
+    "notFound": "Trainer nicht gefunden."
+  },
+  "intake": {
+    "title": "Trainerprofil einreichen",
+    "subtitle": "Werden Sie Teil des Trainer-Pools von Sandra Leo Pilates Education. Nach Prüfung Ihres Profils melden wir uns bei Ihnen.",
+    "sections": {
+      "personal": "Persönliche Angaben",
+      "location": "Standort",
+      "styles": "Pilates-Stil",
+      "equipment": "Geräte",
+      "experience": "Erfahrung",
+      "quality": "Qualitätsprofil",
+      "offerings": "Unterrichtsangebot",
+      "teachingLocations": "Unterrichtsorte",
+      "photo": "Foto",
+      "confirm": "Bestätigung"
+    },
+    "fields": {
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "gender": "Geschlecht",
+      "email": "E-Mail",
+      "phone": "Telefonnummer",
+      "website_instagram": "Website / Instagram",
+      "location_name": "Hauptstandort",
+      "postal_code": "PLZ",
+      "city": "Stadt",
+      "country": "Land",
+      "radius_km": "Unterricht möglich im Umkreis von (km)",
+      "online_teaching": "Online-Unterricht möglich",
+      "styles": "Ich unterrichte",
+      "styles_other": "Sonstiges",
+      "equipment": "Ich unterrichte an",
+      "teaching_since": "Ich unterrichte Pilates seit (Jahr)",
+      "experience_years": "Erfahrung in Jahren",
+      "educations": "Abgeschlossene Pilates-Ausbildungen",
+      "certifications": "Zertifizierungen",
+      "recent_trainings": "Fortbildungen der letzten 2 Jahre",
+      "self_assessment": "Eigene Einschätzung",
+      "quality_statement": "Worin liegt Ihre besondere Qualität als Pilates-Trainer?",
+      "offerings": "Angebot",
+      "teaching_locations": "Ich unterrichte in",
+      "max_distance_km": "Maximale Entfernung zum Unterrichten (km)",
+      "photo": "Profilfoto",
+      "confirmed": "Ich bestätige, dass alle Angaben korrekt sind und stimme der Speicherung meiner Daten zur Vermittlung zu."
+    },
+    "photoHint": "JPG oder PNG. Das Foto erscheint auf Ihrem öffentlichen Profil.",
+    "errors": {
+      "generic": "Bitte prüfen Sie die markierten Felder.",
+      "field": "Bitte prüfen Sie dieses Feld.",
+      "photoRequired": "Bitte laden Sie ein Foto hoch.",
+      "photoTooLarge": "Das Foto ist zu groß (max. 8 MB).",
+      "photoType": "Bitte nur JPG, PNG oder WebP hochladen."
+    },
+    "success": {
+      "title": "Vielen Dank!",
+      "body": "Ihr Profil ist eingegangen. Sandra Leo prüft Ihre Angaben persönlich und meldet sich bei Ihnen. Erst nach der Freigabe erscheint Ihr Profil auf der Karte."
+    }
+  },
+  "inquiry": {
+    "title": "Trainer anfragen",
+    "subtitle": "Ihre Anfrage geht direkt an Sandra Leo, die den Kontakt persönlich herstellt.",
+    "forTeacher": "Anfrage für {name} ({city})",
+    "fields": {
+      "studio_name": "Name des Studios",
+      "contact_name": "Ansprechpartner",
+      "email": "E-Mail",
+      "phone": "Telefon (optional)",
+      "location": "Ort des Studios",
+      "message": "Ihre Nachricht"
+    },
+    "messagePlaceholder": "Was suchen Sie? (Kurstypen, Umfang, Zeitraum …)",
+    "success": {
+      "title": "Anfrage gesendet!",
+      "body": "Vielen Dank! Sandra Leo meldet sich zeitnah bei Ihnen und stellt den Kontakt her."
+    }
+  },
+  "options": {
+    "genders": {
+      "female": "Weiblich",
+      "male": "Männlich",
+      "diverse": "Divers"
+    },
+    "styles": {
+      "classical": "Klassisch",
+      "contemporary": "Contemporary",
+      "rehab": "Rehabilitativ / therapeutisch",
+      "athletic": "Sportlich / athletic",
+      "prepostnatal": "Pre- / Postnatal",
+      "seniors": "Senioren",
+      "other": "Sonstiges"
+    },
+    "equipment": {
+      "mat": "Matte",
+      "reformer": "Reformer",
+      "cadillac": "Cadillac / Trapeze Table",
+      "chair": "Chair",
+      "ladder_barrel": "Ladder Barrel",
+      "spine_corrector": "Spine Corrector / Arc Barrel",
+      "springboard": "Springboard",
+      "tower": "Tower",
+      "small_props": "Kleingeräte"
+    },
+    "offerings": {
+      "personal_training": "Personal Training",
+      "duet": "Duett",
+      "small_groups": "Kleingruppen",
+      "group_classes": "Gruppenkurse",
+      "workshops": "Workshops",
+      "teacher_training": "Teacher Training",
+      "online": "Online"
+    },
+    "teachingLocations": {
+      "own_studio": "Eigenes Studio",
+      "other_studio": "Fremdstudio",
+      "gym": "Fitnessstudio",
+      "physio_practice": "Physiopraxis",
+      "clients_home": "Beim Kunden zuhause",
+      "online": "Online"
+    },
+    "selfAssessments": {
+      "beginner": "Einsteiger",
+      "advanced": "Fortgeschritten",
+      "very_experienced": "Sehr erfahren",
+      "expert": "Experte"
+    }
+  }
+}
