@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const geist = Geist({ subsets: ['latin'] });
@@ -24,7 +25,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body className={geist.className}>{children}</body>
+      <body className={geist.className}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
