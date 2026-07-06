@@ -47,7 +47,8 @@ export async function submitTeacherApplication(
     return { ok: false, errors: { _form: 'generic' } };
   }
 
-  const { confirmed: _confirmed, ...teacher } = parsed.data;
+  const { confirmed, ...teacher } = parsed.data;
+  void confirmed;
   const coords = await geocode(teacher.postal_code, teacher.city, teacher.country);
 
   const { error: insertError } = await supabase.from('teachers').insert({
@@ -59,6 +60,12 @@ export async function submitTeacherApplication(
   });
   if (insertError) {
     console.error('teacher insert failed', insertError);
+    const { error: cleanupError } = await supabase.storage
+      .from('teacher-photos')
+      .remove([photoPath]);
+    if (cleanupError) {
+      console.error('photo cleanup after failed insert failed', cleanupError);
+    }
     return { ok: false, errors: { _form: 'generic' } };
   }
 

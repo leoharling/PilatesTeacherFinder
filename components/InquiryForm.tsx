@@ -18,9 +18,13 @@ export default function InquiryForm({ teacherId }: { teacherId: string }) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     startTransition(async () => {
-      const result: InquiryResult = await submitInquiry(fd);
-      if (result.ok) setSubmitted(true);
-      else setErrors(result.errors);
+      try {
+        const result: InquiryResult = await submitInquiry(fd);
+        if (result.ok) setSubmitted(true);
+        else setErrors(result.errors);
+      } catch {
+        setErrors({ _form: 'generic' });
+      }
     });
   }
 

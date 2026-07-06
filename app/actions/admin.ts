@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { createSupabaseServiceClient } from '@/lib/supabase/service';
 import type { TeacherStatus, InquiryStatus } from '@/lib/types';
 
 async function requireAdminClient() {
@@ -33,9 +34,29 @@ export async function updateTeacherStatus(
 }
 
 export async function deleteTeacher(id: string): Promise<void> {
+  // Auth check happens via the cookie-bound client under RLS.
   const supabase = await requireAdminClient();
+  const { data: teacher } = await supabase
+    .from('teachers')
+    .select('photo_path')
+    .eq('id', id)
+    .maybeSingle();
+
   const { error } = await supabase.from('teachers').delete().eq('id', id);
   if (error) throw new Error(`Löschen fehlgeschlagen: ${error.message}`);
+
+  if (teacher?.photo_path) {
+    // Storage deletion needs the service role client (RLS on storage
+    // objects would otherwise block it).
+    const service = createSupabaseServiceClient();
+    const { error: storageError } = await service.storage
+      .from('teacher-photos')
+      .remove([teacher.photo_path]);
+    if (storageError) {
+      console.error('photo cleanup failed', storageError);
+    }
+  }
+
   revalidatePublic();
   redirect('/admin');
 }

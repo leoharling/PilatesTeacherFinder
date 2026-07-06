@@ -55,6 +55,18 @@ describe('teacherIntakeSchema', () => {
     }
   });
 
+  it('rejects an empty string for a required numeric field instead of coercing to 0', () => {
+    const result = teacherIntakeSchema.safeParse({
+      ...validIntake,
+      experience_years: '',
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const errors = flattenZodErrors(result.error);
+      expect(errors.experience_years).toBeDefined();
+    }
+  });
+
   it('rejects invalid email and unknown style keys', () => {
     const result = teacherIntakeSchema.safeParse({
       ...validIntake,

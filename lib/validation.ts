@@ -10,6 +10,15 @@ import {
 
 const CURRENT_YEAR = new Date().getFullYear();
 
+// Required numeric fields must reject empty strings rather than silently
+// coercing '' -> 0 (z.coerce.number() would otherwise turn an empty input
+// into a valid 0).
+const requiredInt = (min: number, max: number) =>
+  z.preprocess(
+    (v) => (v === '' || v === null || v === undefined ? undefined : v),
+    z.coerce.number().int().min(min).max(max)
+  );
+
 export const teacherIntakeSchema = z.object({
   first_name: z.string().trim().min(1),
   last_name: z.string().trim().min(1),
@@ -21,13 +30,13 @@ export const teacherIntakeSchema = z.object({
   postal_code: z.string().trim().min(3).max(10),
   city: z.string().trim().min(1),
   country: z.string().trim().min(1).default('Deutschland'),
-  radius_km: z.coerce.number().int().min(0).max(1000),
+  radius_km: requiredInt(0, 1000),
   online_teaching: z.boolean(),
   styles: z.array(z.enum(STYLES)).min(1),
   styles_other: z.string().trim().max(300).default(''),
   equipment: z.array(z.enum(EQUIPMENT)).min(1),
-  teaching_since: z.coerce.number().int().min(1950).max(CURRENT_YEAR),
-  experience_years: z.coerce.number().int().min(0).max(80),
+  teaching_since: requiredInt(1950, CURRENT_YEAR),
+  experience_years: requiredInt(0, 80),
   educations: z.string().trim().min(1).max(2000),
   certifications: z.string().trim().max(2000).default(''),
   recent_trainings: z.string().trim().max(2000).default(''),
@@ -35,7 +44,7 @@ export const teacherIntakeSchema = z.object({
   quality_statement: z.string().trim().min(1).max(2000),
   offerings: z.array(z.enum(OFFERINGS)).min(1),
   teaching_locations: z.array(z.enum(TEACHING_LOCATIONS)).min(1),
-  max_distance_km: z.coerce.number().int().min(0).max(1000),
+  max_distance_km: requiredInt(0, 1000),
   confirmed: z.literal(true),
 });
 

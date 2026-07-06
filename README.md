@@ -76,7 +76,7 @@ Defined in `.env.example`; copy to `.env.local` and fill in:
 | -------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_SUPABASE_URL`       | Supabase project URL (public, used by the browser client).                                    |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY`  | Supabase anon/public API key (public, respects Row Level Security).                            |
-| `SUPABASE_SERVICE_ROLE_KEY`      | Supabase service role key — server-only, bypasses RLS (used for admin actions/storage writes). |
+| `SUPABASE_SERVICE_ROLE_KEY`      | Supabase service role key — server-only, bypasses RLS (used for intake/inquiry writes and storage; admin actions use the cookie-bound client under RLS instead). |
 | `RESEND_API_KEY`                 | Optional. Resend API key for sending inquiry notification emails.                              |
 | `INQUIRY_NOTIFY_EMAIL`           | Optional. Address that receives an email when a new studio inquiry comes in.                   |
 

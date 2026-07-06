@@ -36,18 +36,29 @@ export default async function AdminTeachersPage({
           {pendingCount > 0 ? ` · ${pendingCount} neu` : ''})
         </h1>
         <div className="flex gap-2 text-sm">
-          <Link href="/admin" className="rounded-full border border-blush px-3 py-1 hover:bg-blush-light">
-            Alle
-          </Link>
-          <Link href="/admin?status=pending" className="rounded-full border border-blush px-3 py-1 hover:bg-blush-light">
-            Neu
-          </Link>
-          <Link href="/admin?status=approved" className="rounded-full border border-blush px-3 py-1 hover:bg-blush-light">
-            Freigegeben
-          </Link>
-          <Link href="/admin?status=rejected" className="rounded-full border border-blush px-3 py-1 hover:bg-blush-light">
-            Abgelehnt
-          </Link>
+          {(
+            [
+              { href: '/admin', label: 'Alle', match: undefined },
+              { href: '/admin?status=pending', label: 'Neu', match: 'pending' },
+              { href: '/admin?status=approved', label: 'Freigegeben', match: 'approved' },
+              { href: '/admin?status=rejected', label: 'Abgelehnt', match: 'rejected' },
+            ] as const
+          ).map((chip) => {
+            const isActive = chip.match === statusFilter;
+            return (
+              <Link
+                key={chip.href}
+                href={chip.href}
+                className={
+                  isActive
+                    ? 'rounded-full border border-blush-deep bg-blush px-3 py-1 text-charcoal'
+                    : 'rounded-full border border-blush px-3 py-1 hover:bg-blush-light'
+                }
+              >
+                {chip.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
       <div className="overflow-x-auto rounded-lg border border-blush-light bg-white">

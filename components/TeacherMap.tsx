@@ -24,7 +24,10 @@ export default function TeacherMap({
     null
   );
   const onSelectRef = useRef(onSelect);
-  onSelectRef.current = onSelect;
+
+  useEffect(() => {
+    onSelectRef.current = onSelect;
+  }, [onSelect]);
 
   useEffect(() => {
     let disposed = false;

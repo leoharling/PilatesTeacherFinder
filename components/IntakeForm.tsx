@@ -49,12 +49,16 @@ export default function IntakeForm() {
           // keep original file if downscaling fails; server enforces limits
         }
       }
-      const result: IntakeResult = await submitTeacherApplication(fd);
-      if (result.ok) {
-        setSubmitted(true);
-        window.scrollTo({ top: 0 });
-      } else {
-        setErrors(result.errors);
+      try {
+        const result: IntakeResult = await submitTeacherApplication(fd);
+        if (result.ok) {
+          setSubmitted(true);
+          window.scrollTo({ top: 0 });
+        } else {
+          setErrors(result.errors);
+        }
+      } catch {
+        setErrors({ _form: 'generic' });
       }
     });
   }
