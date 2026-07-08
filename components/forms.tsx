@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 export function SectionHeading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="heading-brand mt-10 mb-4 border-b border-blush-light pb-2 text-sm text-charcoal">
+    <h2 className="heading-brand mt-8 mb-4 border-b border-blush-light pb-2 text-sm text-charcoal sm:mt-10">
       {children}
     </h2>
   );
@@ -12,11 +12,11 @@ export function SectionHeading({ children }: { children: ReactNode }) {
 
 export function ErrorText({ children }: { children?: ReactNode }) {
   if (!children) return null;
-  return <p className="mt-1 text-xs text-red-600">{children}</p>;
+  return <p className="mt-1.5 text-sm text-red-600">{children}</p>;
 }
 
 const inputClass =
-  'w-full rounded-md border border-blush px-3 py-2 text-sm focus:border-blush-deep focus:outline-none bg-white';
+  'w-full rounded-xl border border-blush bg-white px-4 py-3 text-base transition-colors focus:border-blush-deep focus:outline-none focus:ring-2 focus:ring-blush/60 aria-[invalid=true]:border-red-400';
 
 export function TextField(props: {
   name: string;
@@ -30,7 +30,7 @@ export function TextField(props: {
   const { name, label, error, type = 'text', required, placeholder, defaultValue } = props;
   return (
     <div>
-      <label htmlFor={name} className="mb-1 block text-sm font-medium">
+      <label htmlFor={name} className="mb-1.5 block text-sm font-medium">
         {label}
         {required ? ' *' : ''}
       </label>
@@ -59,7 +59,7 @@ export function TextArea(props: {
   const { name, label, error, required, rows = 4, placeholder } = props;
   return (
     <div>
-      <label htmlFor={name} className="mb-1 block text-sm font-medium">
+      <label htmlFor={name} className="mb-1.5 block text-sm font-medium">
         {label}
         {required ? ' *' : ''}
       </label>
@@ -85,11 +85,19 @@ export function CheckboxGroup(props: {
   const { name, label, options, error } = props;
   return (
     <fieldset>
-      <legend className="mb-2 text-sm font-medium">{label} *</legend>
+      <legend className="mb-2.5 text-sm font-medium">{label} *</legend>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {options.map((o) => (
-          <label key={o.value} className="flex items-center gap-2 text-sm">
-            <input type="checkbox" name={name} value={o.value} className="accent-blush-deep" />
+          <label
+            key={o.value}
+            className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-blush-light px-4 text-sm transition-colors has-[:checked]:border-blush-deep has-[:checked]:bg-blush-light active:bg-blush-light"
+          >
+            <input
+              type="checkbox"
+              name={name}
+              value={o.value}
+              className="size-5 shrink-0 accent-blush-deep"
+            />
             {o.label}
           </label>
         ))}
@@ -108,11 +116,19 @@ export function RadioGroup(props: {
   const { name, label, options, error } = props;
   return (
     <fieldset>
-      <legend className="mb-2 text-sm font-medium">{label} *</legend>
-      <div className="flex flex-wrap gap-4">
+      <legend className="mb-2.5 text-sm font-medium">{label} *</legend>
+      <div className="flex flex-wrap gap-2">
         {options.map((o) => (
-          <label key={o.value} className="flex items-center gap-2 text-sm">
-            <input type="radio" name={name} value={o.value} className="accent-blush-deep" />
+          <label
+            key={o.value}
+            className="flex min-h-12 cursor-pointer items-center gap-2.5 rounded-xl border border-blush-light px-4 text-sm transition-colors has-[:checked]:border-blush-deep has-[:checked]:bg-blush-light active:bg-blush-light"
+          >
+            <input
+              type="radio"
+              name={name}
+              value={o.value}
+              className="size-5 shrink-0 accent-blush-deep"
+            />
             {o.label}
           </label>
         ))}

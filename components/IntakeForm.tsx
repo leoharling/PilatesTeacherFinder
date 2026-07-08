@@ -65,7 +65,7 @@ export default function IntakeForm() {
 
   if (submitted) {
     return (
-      <div className="mx-auto max-w-xl rounded-lg bg-blush-light px-8 py-12 text-center">
+      <div className="mx-auto max-w-xl rounded-2xl bg-blush-light px-6 py-12 text-center sm:px-8">
         <h2 className="heading-brand text-xl">{t('success.title')}</h2>
         <p className="mt-4 text-sm leading-relaxed">{t('success.body')}</p>
       </div>
@@ -78,12 +78,12 @@ export default function IntakeForm() {
   return (
     <form onSubmit={onSubmit} noValidate className="mx-auto max-w-2xl">
       {errors._form && (
-        <p className="mb-4 rounded bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
           {tc('error')}
         </p>
       )}
       {Object.keys(errors).length > 0 && !errors._form && (
-        <p className="mb-4 rounded bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
           {t('errors.generic')}
         </p>
       )}
@@ -113,8 +113,8 @@ export default function IntakeForm() {
       </div>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <TextField name="radius_km" type="number" label={t('fields.radius_km')} required error={fieldError('radius_km')} />
-        <label className="flex items-center gap-2 self-end pb-2 text-sm">
-          <input type="checkbox" name="online_teaching" value="true" className="accent-blush-deep" />
+        <label className="flex min-h-12 items-center gap-3 rounded-xl border border-blush-light px-4 text-sm transition-colors has-[:checked]:border-blush-deep has-[:checked]:bg-blush-light active:bg-blush-light">
+          <input type="checkbox" name="online_teaching" value="true" className="size-5 accent-blush-deep" />
           {t('fields.online_teaching')}
         </label>
       </div>
@@ -158,13 +158,19 @@ export default function IntakeForm() {
       <label htmlFor="photo" className="mb-1 block text-sm font-medium">
         {t('fields.photo')} *
       </label>
-      <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp" className="text-sm" />
-      <p className="mt-1 text-xs text-charcoal-soft">{t('photoHint')}</p>
+      <input
+        id="photo"
+        name="photo"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        className="block w-full text-sm text-charcoal-soft file:mr-4 file:min-h-11 file:rounded-full file:border-0 file:bg-blush file:px-5 file:font-medium file:text-charcoal active:file:bg-blush-deep"
+      />
+      <p className="mt-2 text-xs text-charcoal-soft">{t('photoHint')}</p>
       <ErrorText>{errors.photo ? t(`errors.${errors.photo}`) : undefined}</ErrorText>
 
       <SectionHeading>{t('sections.confirm')}</SectionHeading>
-      <label className="flex items-start gap-2 text-sm">
-        <input type="checkbox" name="confirmed" value="true" className="mt-1 accent-blush-deep" />
+      <label className="flex items-start gap-3 rounded-xl border border-blush-light p-4 text-sm transition-colors has-[:checked]:border-blush-deep has-[:checked]:bg-blush-light">
+        <input type="checkbox" name="confirmed" value="true" className="mt-0.5 size-5 shrink-0 accent-blush-deep" />
         {t('fields.confirmed')}
       </label>
       <ErrorText>{fieldError('confirmed')}</ErrorText>
@@ -173,7 +179,7 @@ export default function IntakeForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-4 w-full rounded-full bg-blush px-6 py-3 font-medium text-charcoal hover:bg-blush-deep disabled:opacity-50"
+        className="btn mt-4 w-full bg-blush text-charcoal sm:hover:bg-blush-deep"
       >
         {pending ? tc('sending') : tc('submit')}
       </button>

@@ -16,13 +16,13 @@ export default function TeacherActions({
   const act = (fn: () => Promise<void>) => () => startTransition(fn);
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap">
       {status !== 'approved' && (
         <button
           type="button"
           disabled={pending}
           onClick={act(() => updateTeacherStatus(id, 'approved'))}
-          className="rounded-full bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+          className="btn bg-green-600 text-sm text-white sm:hover:bg-green-700"
         >
           Freigeben
         </button>
@@ -32,7 +32,7 @@ export default function TeacherActions({
           type="button"
           disabled={pending}
           onClick={act(() => updateTeacherStatus(id, 'rejected'))}
-          className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+          className="btn bg-red-600 text-sm text-white sm:hover:bg-red-700"
         >
           Ablehnen
         </button>
@@ -42,7 +42,7 @@ export default function TeacherActions({
           type="button"
           disabled={pending}
           onClick={act(() => updateTeacherStatus(id, 'pending'))}
-          className="rounded-full border border-charcoal-soft px-4 py-2 text-sm hover:bg-blush-light disabled:opacity-50"
+          className="btn border border-charcoal-soft text-sm sm:hover:bg-blush-light"
         >
           Zurückziehen
         </button>
@@ -55,7 +55,7 @@ export default function TeacherActions({
             startTransition(() => deleteTeacher(id));
           }
         }}
-        className="rounded-full border border-red-300 px-4 py-2 text-sm text-red-600 hover:bg-red-50 disabled:opacity-50"
+        className="btn border border-red-300 text-sm text-red-600 sm:hover:bg-red-50"
       >
         Löschen
       </button>

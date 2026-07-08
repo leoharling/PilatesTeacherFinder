@@ -6,28 +6,44 @@ import { Link } from '@/i18n/navigation';
 import type { TeacherPublicRow } from '@/lib/types';
 import { photoUrl } from '@/lib/types';
 
-export default function TeacherCard({ teacher }: { teacher: TeacherPublicRow }) {
+export default function TeacherCard({
+  teacher,
+  onClose,
+}: {
+  teacher: TeacherPublicRow;
+  onClose?: () => void;
+}) {
   const t = useTranslations('home');
   const tc = useTranslations('common');
   const to = useTranslations('options');
   const src = photoUrl(teacher.photo_path);
   return (
-    <div className="flex gap-4 rounded-lg border border-blush-light bg-white p-4 shadow-sm">
+    <div className="relative flex gap-4 rounded-2xl border border-blush-light bg-white p-4 shadow-sm">
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label={tc('back')}
+          className="absolute right-2 top-2 flex size-8 items-center justify-center rounded-full text-charcoal-soft transition-colors active:bg-blush-light"
+        >
+          ✕
+        </button>
+      )}
       {src ? (
         <Image
           src={src}
           alt={teacher.display_name}
           width={72}
           height={72}
-          className="h-18 w-18 rounded-full object-cover"
+          className="size-18 shrink-0 rounded-full object-cover"
         />
       ) : (
-        <div className="flex h-18 w-18 items-center justify-center rounded-full bg-blush-light text-xl">
+        <div className="flex size-18 shrink-0 items-center justify-center rounded-full bg-blush-light text-xl">
           {teacher.display_name.charAt(0)}
         </div>
       )}
       <div className="min-w-0 flex-1">
-        <p className="font-medium">{teacher.display_name}</p>
+        <p className="pr-6 font-medium">{teacher.display_name}</p>
         <p className="text-sm text-charcoal-soft">
           {teacher.city}
           {teacher.radius_km > 0 ? ` · ${teacher.radius_km} ${tc('km')}` : ''}
@@ -52,9 +68,9 @@ export default function TeacherCard({ teacher }: { teacher: TeacherPublicRow }) 
         </div>
         <Link
           href={`/trainer/${teacher.id}`}
-          className="mt-2 inline-block text-sm font-medium text-blush-deep hover:underline"
+          className="mt-3 flex min-h-10 items-center justify-center rounded-full bg-blush px-4 text-sm font-medium text-charcoal transition-transform active:scale-[0.98] sm:inline-flex sm:hover:bg-blush-deep"
         >
-          {t('viewProfile')} →
+          {t('viewProfile')}
         </Link>
       </div>
     </div>

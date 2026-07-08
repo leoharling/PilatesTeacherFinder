@@ -33,7 +33,7 @@ export default async function TeacherProfilePage({
   );
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
+    <div className="mx-auto max-w-3xl px-4 py-8 pb-safe sm:px-6 sm:py-10">
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
         {src ? (
           <Image
@@ -41,14 +41,14 @@ export default async function TeacherProfilePage({
             alt={teacher.display_name}
             width={160}
             height={160}
-            className="h-40 w-40 rounded-full object-cover"
+            className="size-36 rounded-full object-cover sm:size-40"
           />
         ) : (
-          <div className="flex h-40 w-40 items-center justify-center rounded-full bg-blush-light text-5xl">
+          <div className="flex size-36 items-center justify-center rounded-full bg-blush-light text-5xl sm:size-40">
             {teacher.display_name.charAt(0)}
           </div>
         )}
-        <div className="text-center sm:text-left">
+        <div className="w-full text-center sm:text-left">
           <h1 className="heading-brand text-2xl">{teacher.display_name}</h1>
           <p className="mt-1 text-charcoal-soft">
             {teacher.city}, {teacher.country}
@@ -68,7 +68,7 @@ export default async function TeacherProfilePage({
           </div>
           <Link
             href={`/anfrage/${teacher.id}`}
-            className="mt-5 inline-block rounded-full bg-blush px-6 py-3 font-medium text-charcoal hover:bg-blush-deep"
+            className="btn mt-5 w-full bg-blush text-charcoal transition-transform active:scale-[0.98] sm:w-auto sm:hover:bg-blush-deep"
           >
             {t('requestButton')}
           </Link>

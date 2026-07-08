@@ -21,7 +21,7 @@ export default function InquiryStatusSelect({
           updateInquiryStatus(id, e.target.value as InquiryStatus)
         )
       }
-      className="rounded-md border border-blush px-2 py-1 text-sm"
+      className="min-h-10 rounded-xl border border-blush bg-white px-3 text-sm"
     >
       <option value="new">Neu</option>
       <option value="contacted">Kontaktiert</option>

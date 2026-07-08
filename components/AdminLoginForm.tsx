@@ -19,10 +19,10 @@ export default function AdminLoginForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       {error && (
-        <p className="rounded bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+        <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
       )}
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium">
+        <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
           E-Mail
         </label>
         <input
@@ -30,11 +30,11 @@ export default function AdminLoginForm() {
           name="email"
           type="email"
           autoComplete="email"
-          className="w-full rounded-md border border-blush px-3 py-2 text-sm focus:border-blush-deep focus:outline-none"
+          className="w-full rounded-xl border border-blush px-4 py-3 text-base focus:border-blush-deep focus:outline-none focus:ring-2 focus:ring-blush/60"
         />
       </div>
       <div>
-        <label htmlFor="password" className="mb-1 block text-sm font-medium">
+        <label htmlFor="password" className="mb-1.5 block text-sm font-medium">
           Passwort
         </label>
         <input
@@ -42,13 +42,13 @@ export default function AdminLoginForm() {
           name="password"
           type="password"
           autoComplete="current-password"
-          className="w-full rounded-md border border-blush px-3 py-2 text-sm focus:border-blush-deep focus:outline-none"
+          className="w-full rounded-xl border border-blush px-4 py-3 text-base focus:border-blush-deep focus:outline-none focus:ring-2 focus:ring-blush/60"
         />
       </div>
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-blush px-6 py-3 font-medium text-charcoal hover:bg-blush-deep disabled:opacity-50"
+        className="btn w-full bg-blush text-charcoal sm:hover:bg-blush-deep"
       >
         {pending ? 'Anmelden…' : 'Anmelden'}
       </button>

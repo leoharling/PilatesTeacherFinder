@@ -7,6 +7,13 @@ import { StatusBadge, ADMIN_LABELS, labelList } from '@/components/admin/StatusB
 
 const STATUS_ORDER = { pending: 0, approved: 1, rejected: 2 } as const;
 
+const FILTERS = [
+  { href: '/admin', label: 'Alle', match: undefined },
+  { href: '/admin?status=pending', label: 'Neu', match: 'pending' },
+  { href: '/admin?status=approved', label: 'Freigegeben', match: 'approved' },
+  { href: '/admin?status=rejected', label: 'Abgelehnt', match: 'rejected' },
+] as const;
+
 export default async function AdminTeachersPage({
   searchParams,
 }: {
@@ -30,95 +37,89 @@ export default async function AdminTeachersPage({
 
   return (
     <div>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="heading-brand text-lg">
-          Trainer ({teachers.length}
-          {pendingCount > 0 ? ` · ${pendingCount} neu` : ''})
-        </h1>
-        <div className="flex gap-2 text-sm">
-          {(
-            [
-              { href: '/admin', label: 'Alle', match: undefined },
-              { href: '/admin?status=pending', label: 'Neu', match: 'pending' },
-              { href: '/admin?status=approved', label: 'Freigegeben', match: 'approved' },
-              { href: '/admin?status=rejected', label: 'Abgelehnt', match: 'rejected' },
-            ] as const
-          ).map((chip) => {
-            const isActive = chip.match === statusFilter;
-            return (
-              <Link
-                key={chip.href}
-                href={chip.href}
-                className={
-                  isActive
-                    ? 'rounded-full border border-blush-deep bg-blush px-3 py-1 text-charcoal'
-                    : 'rounded-full border border-blush px-3 py-1 hover:bg-blush-light'
-                }
-              >
-                {chip.label}
-              </Link>
-            );
-          })}
-        </div>
+      <h1 className="heading-brand text-lg">
+        Trainer ({teachers.length}
+        {pendingCount > 0 ? ` · ${pendingCount} neu` : ''})
+      </h1>
+
+      <div className="mt-4 -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {FILTERS.map((chip) => {
+          const isActive = chip.match === statusFilter;
+          return (
+            <Link
+              key={chip.href}
+              href={chip.href}
+              className={`flex min-h-9 shrink-0 items-center whitespace-nowrap rounded-full border px-4 text-sm transition-colors ${
+                isActive
+                  ? 'border-blush-deep bg-blush font-medium text-charcoal'
+                  : 'border-blush text-charcoal-soft active:bg-blush-light sm:hover:bg-blush-light'
+              }`}
+            >
+              {chip.label}
+            </Link>
+          );
+        })}
       </div>
-      <div className="overflow-x-auto rounded-lg border border-blush-light bg-white">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-blush-light text-left text-xs uppercase tracking-wider text-charcoal-soft">
-              <th className="px-4 py-3">Foto</th>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Ort</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Stile</th>
-              <th className="px-4 py-3">Erfahrung</th>
-              <th className="px-4 py-3">Eingereicht</th>
-            </tr>
-          </thead>
-          <tbody>
-            {teachers.length === 0 && (
-              <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-charcoal-soft">
-                  Keine Trainer vorhanden.
-                </td>
-              </tr>
-            )}
+
+      <div className="mt-3 overflow-hidden rounded-2xl border border-blush-light bg-white">
+        {teachers.length === 0 ? (
+          <p className="px-4 py-12 text-center text-sm text-charcoal-soft">
+            Keine Trainer vorhanden.
+          </p>
+        ) : (
+          <ul className="divide-y divide-blush-light">
             {teachers.map((t) => {
               const src = photoUrl(t.photo_path);
               return (
-                <tr key={t.id} className="relative border-b border-blush-light/60 last:border-0 hover:bg-blush-light/40">
-                  <td className="px-4 py-2">
+                <li key={t.id}>
+                  <Link href={`/admin/trainer/${t.id}`} className="list-row">
                     {src ? (
-                      <Image src={src} alt="" width={36} height={36} className="h-9 w-9 rounded-full object-cover" />
+                      <Image
+                        src={src}
+                        alt=""
+                        width={48}
+                        height={48}
+                        className="size-12 shrink-0 rounded-full object-cover"
+                      />
                     ) : (
-                      <div className="h-9 w-9 rounded-full bg-blush-light" />
+                      <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-blush-light text-charcoal-soft">
+                        {t.first_name.charAt(0)}
+                      </div>
                     )}
-                  </td>
-                  <td className="px-4 py-2 font-medium">
-                    <Link href={`/admin/trainer/${t.id}`} className="after:absolute after:inset-0">
-                      {t.first_name} {t.last_name}
-                    </Link>
-                  </td>
-                  <td className="px-4 py-2">
-                    {t.postal_code} {t.city}
-                    {t.lat === null && (
-                      <span title="Standort nicht gefunden — bitte prüfen" className="ml-1 text-amber-600">⚠</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-2"><StatusBadge status={t.status} /></td>
-                  <td className="max-w-56 truncate px-4 py-2 text-charcoal-soft">
-                    {labelList(t.styles, ADMIN_LABELS.styles)}
-                  </td>
-                  <td className="px-4 py-2 text-charcoal-soft">
-                    {t.experience_years !== null ? `${t.experience_years} J.` : '—'}
-                  </td>
-                  <td className="px-4 py-2 text-charcoal-soft">
-                    {new Date(t.created_at).toLocaleDateString('de-DE')}
-                  </td>
-                </tr>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="truncate font-medium">
+                          {t.first_name} {t.last_name}
+                        </p>
+                        {t.lat === null && (
+                          <span
+                            title="Standort nicht gefunden — bitte prüfen"
+                            className="shrink-0 text-amber-600"
+                          >
+                            ⚠
+                          </span>
+                        )}
+                      </div>
+                      <p className="truncate text-sm text-charcoal-soft">
+                        {t.postal_code} {t.city}
+                        {t.experience_years !== null ? ` · ${t.experience_years} J.` : ''}
+                      </p>
+                      <p className="mt-0.5 truncate text-xs text-charcoal-soft">
+                        {labelList(t.styles, ADMIN_LABELS.styles)}
+                      </p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <StatusBadge status={t.status} />
+                      <span className="text-blush-deep" aria-hidden>
+                        ›
+                      </span>
+                    </div>
+                  </Link>
+                </li>
               );
             })}
-          </tbody>
-        </table>
+          </ul>
+        )}
       </div>
     </div>
   );

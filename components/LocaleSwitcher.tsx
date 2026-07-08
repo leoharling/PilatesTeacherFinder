@@ -12,7 +12,7 @@ export default function LocaleSwitcher() {
     <button
       type="button"
       onClick={() => router.replace(pathname, { locale: other })}
-      className="rounded border border-blush px-2 py-1 text-xs uppercase tracking-wider text-charcoal-soft hover:bg-blush-light"
+      className="flex size-11 items-center justify-center rounded-full border border-blush text-xs uppercase tracking-wider text-charcoal-soft transition-colors active:bg-blush-light sm:hover:bg-blush-light"
       aria-label={other === 'de' ? 'Auf Deutsch wechseln' : 'Switch to English'}
     >
       {other}

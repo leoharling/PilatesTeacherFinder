@@ -33,17 +33,20 @@ export default async function AdminTeacherDetailPage({
   const src = photoUrl(t.photo_path);
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <Link href="/admin" className="text-sm text-charcoal-soft hover:text-charcoal">
+    <div className="mx-auto max-w-4xl pb-safe">
+      <Link
+        href="/admin"
+        className="inline-flex min-h-9 items-center text-sm text-charcoal-soft transition-colors active:text-charcoal sm:hover:text-charcoal"
+      >
         ← Zurück zur Übersicht
       </Link>
-      <div className="mt-4 rounded-lg border border-blush-light bg-white p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="mt-3 rounded-2xl border border-blush-light bg-white p-4 sm:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
           <div className="flex items-center gap-4">
             {src ? (
-              <Image src={src} alt="" width={80} height={80} className="h-20 w-20 rounded-full object-cover" />
+              <Image src={src} alt="" width={80} height={80} className="size-16 rounded-full object-cover sm:size-20" />
             ) : (
-              <div className="h-20 w-20 rounded-full bg-blush-light" />
+              <div className="size-16 rounded-full bg-blush-light sm:size-20" />
             )}
             <div>
               <h1 className="text-xl font-semibold">
@@ -102,11 +105,12 @@ export default async function AdminTeacherDetailPage({
         </div>
 
         {t.status === 'approved' && (
-          <p className="mt-6 text-sm">
-            <Link href={`/de/trainer/${t.id}`} className="text-blush-deep hover:underline">
-              Öffentliches Profil ansehen →
-            </Link>
-          </p>
+          <Link
+            href={`/de/trainer/${t.id}`}
+            className="mt-6 inline-flex min-h-10 items-center text-sm text-blush-deep transition-opacity active:opacity-70 sm:hover:underline"
+          >
+            Öffentliches Profil ansehen →
+          </Link>
         )}
       </div>
     </div>

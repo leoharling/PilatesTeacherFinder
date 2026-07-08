@@ -8,13 +8,82 @@
   --color-charcoal-soft: #6b6b6b;
 }
 
-body {
-  background: #ffffff;
-  color: var(--color-charcoal);
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-charcoal);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Kill the grey tap flash on iOS; we provide our own active states. */
+  a,
+  button,
+  [role="button"],
+  label,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 16px form controls on phones so iOS Safari doesn't zoom on focus. */
+  @media (max-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
 }
 
 .heading-brand {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-weight: 600;
+}
+
+/* Shared pill button: 44px min touch target + subtle press feedback. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding-inline: 1.25rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  line-height: 1.1;
+  transition: transform 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn:disabled {
+  opacity: 0.5;
+  transform: none;
+}
+
+/* Tappable list row (iOS-style) with press feedback. */
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 4rem;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.12s ease;
+}
+.list-row:active {
+  background-color: var(--color-blush-light);
+}
+
+/* Bottom padding that respects the iOS home indicator. */
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
 }
