@@ -88,9 +88,6 @@ export default async function TeacherProfilePage({
           {teacher.teaching_since !== null && (
             <li>{t('teachingSince', { year: teacher.teaching_since })}</li>
           )}
-          {teacher.experience_years !== null && (
-            <li>{t('experienceYears', { years: teacher.experience_years })}</li>
-          )}
         </ul>
         {teacher.educations && (
           <div className="mt-4">
@@ -135,7 +132,7 @@ export default async function TeacherProfilePage({
         {chipList(teacher.teaching_locations, 'teachingLocations')}
         <ul className="mt-3 space-y-1 text-sm text-charcoal-soft">
           <li>
-            {t('location')}: {teacher.city}, {teacher.postal_code}
+            {t('location')}: {teacher.city}
           </li>
           {teacher.radius_km > 0 && <li>{t('radius', { km: teacher.radius_km })}</li>}
           {teacher.max_distance_km > 0 && (

@@ -2,11 +2,12 @@ export type TeacherStatus = 'pending' | 'approved' | 'rejected';
 export type InquiryStatus = 'new' | 'contacted' | 'placed';
 
 // Matches columns of public.teachers_public exactly (see supabase migration).
+// Deliberately excludes postal_code and experience_years — these are private
+// and live only in the base `teachers` table / TeacherRow below.
 export interface TeacherPublicRow {
   id: string;
   display_name: string;
   city: string;
-  postal_code: string;
   country: string;
   radius_km: number;
   online_teaching: boolean;
@@ -14,7 +15,6 @@ export interface TeacherPublicRow {
   styles_other: string;
   equipment: string[];
   teaching_since: number | null;
-  experience_years: number | null;
   educations: string;
   certifications: string;
   recent_trainings: string;
@@ -40,6 +40,8 @@ export interface TeacherRow extends Omit<TeacherPublicRow, 'display_name'> {
   phone: string;
   website_instagram: string;
   location_name: string;
+  postal_code: string;
+  experience_years: number | null;
 }
 
 export interface InquiryRow {

@@ -60,11 +60,6 @@ export default function TeacherCard({
               {tc('online')}
             </span>
           )}
-          {teacher.experience_years !== null && (
-            <span className="text-[11px] text-charcoal-soft">
-              {t('experienceYears', { years: teacher.experience_years })}
-            </span>
-          )}
         </div>
         <Link
           href={`/trainer/${teacher.id}`}

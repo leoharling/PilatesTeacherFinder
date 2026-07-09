@@ -5,9 +5,8 @@ import type { TeacherPublicRow } from '@/lib/types';
 function teacher(partial: Partial<TeacherPublicRow>): TeacherPublicRow {
   return {
     id: 'x',
-    display_name: 'Anna K.',
+    display_name: 'Anna',
     city: 'Berlin',
-    postal_code: '10115',
     country: 'Deutschland',
     radius_km: 25,
     online_teaching: false,
@@ -15,7 +14,6 @@ function teacher(partial: Partial<TeacherPublicRow>): TeacherPublicRow {
     styles_other: '',
     equipment: ['mat'],
     teaching_since: 2018,
-    experience_years: 8,
     educations: '',
     certifications: '',
     recent_trainings: '',
@@ -37,7 +35,7 @@ const none: TeacherFilters = { styles: [], equipment: [], offerings: [], onlineO
 describe('filterTeachers', () => {
   const teachers = [
     teacher({ id: 'a', city: 'Berlin', styles: ['classical'], equipment: ['mat'] }),
-    teacher({ id: 'b', city: 'München', postal_code: '80331', styles: ['contemporary'], equipment: ['reformer'], online_teaching: true }),
+    teacher({ id: 'b', city: 'München', styles: ['contemporary'], equipment: ['reformer'], online_teaching: true }),
   ];
 
   it('returns all with empty filters', () => {
@@ -64,8 +62,8 @@ describe('filterTeachers', () => {
     expect(filterTeachers(teachers, { ...none, onlineOnly: true }).map((t) => t.id)).toEqual(['b']);
   });
 
-  it('matches query against city and postal code, case-insensitive', () => {
+  it('matches query against city, case-insensitive', () => {
     expect(filterTeachers(teachers, { ...none, query: 'münch' }).map((t) => t.id)).toEqual(['b']);
-    expect(filterTeachers(teachers, { ...none, query: '10115' }).map((t) => t.id)).toEqual(['a']);
+    expect(filterTeachers(teachers, { ...none, query: 'BERLIN' }).map((t) => t.id)).toEqual(['a']);
   });
 });
