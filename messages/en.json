@@ -23,7 +23,14 @@
     "teachersFound": "{count, plural, =0 {No teachers found} =1 {1 teacher} other {# teachers}}",
     "viewProfile": "View profile",
     "experienceYears": "{years} years of experience",
-    "noResults": "No teachers match the current filters."
+    "noResults": "No teachers match the current filters.",
+    "tabTeachers": "Teachers",
+    "tabStudios": "Studios",
+    "pitchTitle": "The demand is there",
+    "pitch": "{studios} pilates studios across Germany — but only {teachers} vetted teachers in the pool.",
+    "becomeTeacher": "Apply as a teacher now",
+    "studiosNone": "No studios found.",
+    "studioWebsite": "Website"
   },
   "filters": {
     "title": "Filters",

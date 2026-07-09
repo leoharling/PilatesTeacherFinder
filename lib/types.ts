@@ -44,6 +44,18 @@ export interface TeacherRow extends Omit<TeacherPublicRow, 'display_name'> {
   experience_years: number | null;
 }
 
+export interface Studio {
+  id: string;
+  name: string;
+  city: string;
+  website: string;
+  address: string;
+  phone: string;
+  email: string;
+  lat: number | null;
+  lng: number | null;
+}
+
 export interface InquiryRow {
   id: string;
   created_at: string;

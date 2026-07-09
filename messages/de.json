@@ -23,7 +23,14 @@
     "teachersFound": "{count, plural, =0 {Keine Trainer gefunden} =1 {1 Trainer} other {# Trainer}}",
     "viewProfile": "Profil ansehen",
     "experienceYears": "{years} Jahre Erfahrung",
-    "noResults": "Keine Trainer entsprechen den Filtern."
+    "noResults": "Keine Trainer entsprechen den Filtern.",
+    "tabTeachers": "Trainer",
+    "tabStudios": "Studios",
+    "pitchTitle": "Die Nachfrage ist da",
+    "pitch": "{studios} Pilates-Studios in Deutschland – aber erst {teachers} geprüfte Trainer im Pool.",
+    "becomeTeacher": "Jetzt als Trainer bewerben",
+    "studiosNone": "Keine Studios gefunden.",
+    "studioWebsite": "Website"
   },
   "filters": {
     "title": "Filter",

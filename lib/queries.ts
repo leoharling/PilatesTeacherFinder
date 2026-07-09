@@ -1,5 +1,18 @@
 import { createSupabasePublicClient } from '@/lib/supabase/public';
-import type { TeacherPublicRow } from '@/lib/types';
+import type { TeacherPublicRow, Studio } from '@/lib/types';
+
+export async function getStudios(): Promise<Studio[]> {
+  const supabase = createSupabasePublicClient();
+  const { data, error } = await supabase
+    .from('studios')
+    .select('id, name, city, website, address, phone, email, lat, lng')
+    .order('city', { ascending: true });
+  if (error) {
+    console.error('getStudios failed', error);
+    return [];
+  }
+  return (data ?? []) as Studio[];
+}
 
 export async function getApprovedTeachers(): Promise<TeacherPublicRow[]> {
   const supabase = createSupabasePublicClient();
