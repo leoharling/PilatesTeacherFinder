@@ -21,10 +21,13 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider>
-      <div className="flex min-h-screen flex-col">
+      {/* On desktop the shell is pinned to the viewport so the map app fits the
+          screen (no whole-page scroll); main scrolls internally for long pages.
+          On mobile it grows and the page scrolls naturally. */}
+      <div className="flex min-h-screen flex-col lg:h-dvh lg:min-h-0 lg:overflow-hidden">
         <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <footer className="border-t border-blush-light px-6 py-4 text-center text-xs text-charcoal-soft">
+        <main className="flex-1 lg:min-h-0 lg:overflow-y-auto">{children}</main>
+        <footer className="shrink-0 border-t border-blush-light px-6 py-3 text-center text-xs text-charcoal-soft">
           © Sandra Leo Pilates Education · sandraleopilates.com
         </footer>
       </div>

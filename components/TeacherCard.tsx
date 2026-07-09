@@ -9,20 +9,30 @@ import { photoUrl } from '@/lib/types';
 export default function TeacherCard({
   teacher,
   onClose,
+  onLocate,
 }: {
   teacher: TeacherPublicRow;
   onClose?: () => void;
+  onLocate?: () => void;
 }) {
   const t = useTranslations('home');
   const tc = useTranslations('common');
   const to = useTranslations('options');
   const src = photoUrl(teacher.photo_path);
   return (
-    <div className="relative flex gap-4 rounded-2xl border border-blush-light bg-white p-4 shadow-sm">
+    <div
+      onClick={onLocate}
+      className={`relative flex gap-4 rounded-2xl border border-blush-light bg-white p-4 shadow-sm ${
+        onLocate ? 'cursor-pointer transition-colors sm:hover:border-blush' : ''
+      }`}
+    >
       {onClose && (
         <button
           type="button"
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
           aria-label={tc('back')}
           className="absolute right-2 top-2 flex size-8 items-center justify-center rounded-full text-charcoal-soft transition-colors active:bg-blush-light"
         >
@@ -63,6 +73,7 @@ export default function TeacherCard({
         </div>
         <Link
           href={`/trainer/${teacher.id}`}
+          onClick={(e) => e.stopPropagation()}
           className="mt-3 flex min-h-10 items-center justify-center rounded-full bg-blush px-4 text-sm font-medium text-charcoal transition-transform active:scale-[0.98] sm:inline-flex sm:hover:bg-blush-deep"
         >
           {t('viewProfile')}

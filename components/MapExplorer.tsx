@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import type { TeacherPublicRow, Studio } from '@/lib/types';
 import { filterTeachers, type TeacherFilters } from '@/lib/filter';
 import { STYLES, EQUIPMENT, OFFERINGS } from '@/lib/options';
 import TeacherCard from '@/components/TeacherCard';
+import type { MapFocus } from '@/components/TeacherMap';
 
 const TeacherMap = dynamic(() => import('@/components/TeacherMap'), {
   ssr: false,
@@ -38,6 +38,8 @@ export default function MapExplorer({
   const [studioQuery, setStudioQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [focus, setFocus] = useState<MapFocus | null>(null);
+  const nonce = useRef(0);
 
   const [width, setWidth] = useState(DEFAULT_W);
   const widthRef = useRef(DEFAULT_W);
@@ -58,7 +60,6 @@ export default function MapExplorer({
     widthRef.current = width;
   }, [width]);
 
-  // While dragging, listen on the window so the pointer can leave the handle.
   useEffect(() => {
     if (!dragging) return;
     const move = (e: PointerEvent) => {
@@ -117,6 +118,20 @@ export default function MapExplorer({
     });
   }
 
+  function locateTeacher(teacher: TeacherPublicRow) {
+    setSelectedId(teacher.id);
+    if (teacher.lat !== null && teacher.lng !== null) {
+      nonce.current += 1;
+      setFocus({ lat: teacher.lat, lng: teacher.lng, nonce: nonce.current });
+    }
+  }
+
+  function locateStudio(s: Studio) {
+    if (s.lat === null || s.lng === null) return;
+    nonce.current += 1;
+    setFocus({ lat: s.lat, lng: s.lng, studioId: s.id, nonce: nonce.current });
+  }
+
   const chipGroup = (key: ChipKey, values: readonly string[], label: string, ns: string) => (
     <div>
       <p className="heading-brand mb-2 text-xs">{label}</p>
@@ -143,7 +158,9 @@ export default function MapExplorer({
     filteredTeachers.length === 0 ? (
       <p className="text-sm text-charcoal-soft">{t('noResults')}</p>
     ) : (
-      filteredTeachers.map((teacher) => <TeacherCard key={teacher.id} teacher={teacher} />)
+      filteredTeachers.map((teacher) => (
+        <TeacherCard key={teacher.id} teacher={teacher} onLocate={() => locateTeacher(teacher)} />
+      ))
     );
 
   const studioList =
@@ -151,28 +168,29 @@ export default function MapExplorer({
       <p className="text-sm text-charcoal-soft">{t('studiosNone')}</p>
     ) : (
       filteredStudios.map((s) => (
-        <div key={s.id} className="rounded-2xl border border-blush-light bg-white p-4">
+        <button
+          key={s.id}
+          type="button"
+          onClick={() => locateStudio(s)}
+          className="block w-full rounded-2xl border border-blush-light bg-white p-4 text-left transition-colors active:bg-blush-light sm:hover:border-blush"
+        >
           <p className="font-medium">{s.name}</p>
           <p className="text-sm text-charcoal-soft">{s.address || s.city}</p>
-          {s.phone && (
-            <a
-              href={`tel:${s.phone.replace(/[^+0-9]/g, '')}`}
-              className="mt-0.5 block text-sm text-charcoal-soft active:opacity-70"
-            >
-              {s.phone}
-            </a>
-          )}
+          {s.phone && <p className="mt-0.5 text-sm text-charcoal-soft">{s.phone}</p>}
           {s.website && (
-            <a
-              href={s.website}
-              target="_blank"
-              rel="noopener noreferrer"
+            <span
+              role="link"
+              tabIndex={0}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(s.website, '_blank', 'noopener,noreferrer');
+              }}
               className="mt-1 inline-flex min-h-9 items-center text-sm text-blush-deep active:opacity-70 sm:hover:underline"
             >
               {t('studioWebsite')} ↗
-            </a>
+            </span>
           )}
-        </div>
+        </button>
       ))
     );
 
@@ -186,11 +204,11 @@ export default function MapExplorer({
           placeholder={tf('searchPlaceholder')}
           className="w-full rounded-xl border border-blush px-4 py-3 text-base focus:border-blush-deep focus:outline-none focus:ring-2 focus:ring-blush/60 lg:py-2.5 lg:text-sm"
         />
-        <div className="flex items-center justify-between gap-2 lg:hidden">
+        <div className="flex items-center justify-between gap-2">
           <button
             type="button"
             onClick={() => setShowFilters((v) => !v)}
-            className="flex min-h-10 items-center gap-2 rounded-full border border-blush px-4 text-sm font-medium text-charcoal transition-colors active:bg-blush-light"
+            className="flex min-h-10 items-center gap-2 rounded-full border border-blush px-4 text-sm font-medium text-charcoal transition-colors active:bg-blush-light sm:hover:bg-blush-light"
             aria-expanded={showFilters}
           >
             {tf('title')}
@@ -205,23 +223,20 @@ export default function MapExplorer({
             {t('teachersFound', { count: filteredTeachers.length })}
           </span>
         </div>
-        <div className={`${showFilters ? 'block' : 'hidden'} space-y-4 lg:block`}>
-          {chipGroup('styles', STYLES, tf('styles'), 'styles')}
-          {chipGroup('equipment', EQUIPMENT, tf('equipment'), 'equipment')}
-          {chipGroup('offerings', OFFERINGS, tf('offerings'), 'offerings')}
-          <label className="flex min-h-11 items-center gap-3 text-sm">
-            <input
-              type="checkbox"
-              checked={filters.onlineOnly}
-              onChange={(e) => setFilters((f) => ({ ...f, onlineOnly: e.target.checked }))}
-              className="size-5 accent-blush-deep"
-            />
-            {tf('onlineOnly')}
-          </label>
-          <div className="flex items-center justify-between">
-            <p className="hidden text-sm text-charcoal-soft lg:block">
-              {t('teachersFound', { count: filteredTeachers.length })}
-            </p>
+        {showFilters && (
+          <div className="space-y-4">
+            {chipGroup('styles', STYLES, tf('styles'), 'styles')}
+            {chipGroup('equipment', EQUIPMENT, tf('equipment'), 'equipment')}
+            {chipGroup('offerings', OFFERINGS, tf('offerings'), 'offerings')}
+            <label className="flex min-h-11 items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                checked={filters.onlineOnly}
+                onChange={(e) => setFilters((f) => ({ ...f, onlineOnly: e.target.checked }))}
+                className="size-5 accent-blush-deep"
+              />
+              {tf('onlineOnly')}
+            </label>
             <button
               type="button"
               onClick={() => setFilters(EMPTY)}
@@ -230,7 +245,7 @@ export default function MapExplorer({
               {tf('reset')}
             </button>
           </div>
-        </div>
+        )}
       </div>
     ) : (
       <input
@@ -243,13 +258,12 @@ export default function MapExplorer({
     );
 
   return (
-    <div className="flex flex-col lg:h-[calc(100vh-9rem)] lg:flex-row">
+    <div className="flex flex-col lg:h-full lg:flex-row">
       <aside
         style={{ width }}
         className="flex flex-col max-lg:w-full! lg:shrink-0 lg:overflow-y-auto lg:border-r lg:border-blush-light"
       >
         <div className="space-y-4 border-b border-blush-light p-4 lg:p-5">
-          {/* Tabs */}
           <div className="flex rounded-full bg-blush-light/70 p-1 text-sm">
             <button
               type="button"
@@ -270,21 +284,6 @@ export default function MapExplorer({
               {t('tabStudios')} ({studios.length})
             </button>
           </div>
-
-          {/* Pitch: many studios, few teachers */}
-          <div className="rounded-xl bg-blush-light/60 p-3">
-            <p className="heading-brand text-[11px] text-charcoal-soft">{t('pitchTitle')}</p>
-            <p className="mt-1 text-sm leading-snug">
-              {t('pitch', { studios: studios.length, teachers: teachers.length })}
-            </p>
-            <Link
-              href="/registrieren"
-              className="mt-2 inline-flex min-h-9 items-center text-sm font-medium text-blush-deep active:opacity-70 sm:hover:underline"
-            >
-              {t('becomeTeacher')} →
-            </Link>
-          </div>
-
           {controls}
         </div>
 
@@ -310,6 +309,7 @@ export default function MapExplorer({
           selectedId={selectedId}
           onSelect={setSelectedId}
           sizeVersion={sizeVersion}
+          focus={focus}
         />
         {selected && (
           <div className="pointer-events-none absolute inset-x-3 bottom-3 z-[1000] mx-auto max-w-md pb-safe">

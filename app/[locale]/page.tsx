@@ -17,11 +17,8 @@ export default async function HomePage({
     getStudios(),
   ]);
   return (
-    <div>
-      <div className="border-b border-blush-light px-4 py-4 text-center sm:px-6 sm:py-6">
-        <h1 className="heading-brand text-lg sm:text-2xl">{t('title')}</h1>
-        <p className="mt-1.5 text-sm text-charcoal-soft sm:mt-2">{t('subtitle')}</p>
-      </div>
+    <div className="lg:h-full">
+      <h1 className="sr-only">{t('title')}</h1>
       <MapExplorer teachers={teachers} studios={studios} />
     </div>
   );
